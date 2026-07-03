@@ -5,20 +5,6 @@ import FeatureIcon from '../components/FeatureIcon';
 import './Home.css';
 
 const Home = ({ onBookNow }) => {
-  const [currentBg, setCurrentBg] = useState(0);
-  const bgImages = [
-    "/my-studio-bg.png",
-    "/custom-gallery-8.png",
-    "/custom-gallery-9.png"
-  ];
-
-  useEffect(() => {
-    const bgInterval = setInterval(() => {
-      setCurrentBg((prev) => (prev + 1) % bgImages.length);
-    }, 5000);
-    return () => clearInterval(bgInterval);
-  }, [bgImages.length]);
-
   const galleryImages = [
     "/custom-gallery-1.png",
     "/custom-gallery-2.png",
@@ -61,18 +47,19 @@ const Home = ({ onBookNow }) => {
     { icon: <Armchair size={24} />, title: "Audio Recording Services", description: "Crisp and clear audio recording and editing." }
   ];
 
+  const bannerFeatures = [
+    { icon: <Mic size={24} />, title: "Professional Equipment", description: "Industry-standard microphones, mixers, cameras and more." },
+    { icon: <Mic2 size={24} />, title: "Acoustic Treatment", description: "Soundproof rooms for crystal clear recordings." },
+    { icon: <Video size={24} />, title: "Video & Live Streaming", description: "Record in high quality or go live with ease." },
+    { icon: <MapPin size={24} />, title: "Convenient Location", description: "Easy access with parking and great amenities." }
+  ];
+
   return (
     <div className="home-page">
       {/* 1. HERO SECTION */}
       <section id="home" className="hero-section">
         <div className="hero-backgrounds">
-          {bgImages.map((src, index) => (
-            <div 
-              key={index}
-              className={`hero-bg-image ${index === currentBg ? 'active' : ''}`}
-              style={{ backgroundImage: `url(${src})` }}
-            />
-          ))}
+          <div className="hero-bg-image" style={{ backgroundImage: `url('/bg.png')` }}></div>
           <div className="hero-overlay"></div>
         </div>
 
@@ -190,6 +177,72 @@ const Home = ({ onBookNow }) => {
         </div>
       </section>
 
+      {/* BANNER SECTION */}
+      <section className="section-banner section-padding">
+        <div className="container">
+          <div className="banner-features-card">
+            {bannerFeatures.map((item, idx) => (
+              <div key={idx} className="banner-feature-item">
+                <div className="banner-feature-icon">{item.icon}</div>
+                <div className="banner-feature-text">
+                  <h4>{item.title}</h4>
+                  <p>{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS SECTION */}
+      <section id="about" className="section-how-it-works section-padding">
+        <div className="container">
+          <div className="how-it-works-layout">
+            <div className="hiw-text">
+              <span className="section-tag text-primary">HOW IT WORKS</span>
+              <h2 className="section-title" style={{fontSize: '2rem'}}>Book. Record. Publish.<br/>It's that simple.</h2>
+            </div>
+            <div className="hiw-steps">
+              <div className="hiw-step">
+                <div className="hiw-icon-container">
+                  <div className="hiw-icon"><Calendar size={32} className="text-primary"/></div>
+                  <div className="hiw-number">1</div>
+                </div>
+                <h4>Choose Studio</h4>
+                <p>Pick a studio that fits your needs.</p>
+              </div>
+              <div className="hiw-divider"></div>
+              <div className="hiw-step">
+                <div className="hiw-icon-container">
+                  <div className="hiw-icon"><Clock size={32} className="text-primary"/></div>
+                  <div className="hiw-number">2</div>
+                </div>
+                <h4>Select Time</h4>
+                <p>Choose your date, time and duration.</p>
+              </div>
+              <div className="hiw-divider"></div>
+              <div className="hiw-step">
+                <div className="hiw-icon-container">
+                  <div className="hiw-icon"><CreditCard size={32} className="text-primary"/></div>
+                  <div className="hiw-number">3</div>
+                </div>
+                <h4>Book & Pay</h4>
+                <p>Secure your booking in just a few clicks.</p>
+              </div>
+              <div className="hiw-divider"></div>
+              <div className="hiw-step">
+                <div className="hiw-icon-container">
+                  <div className="hiw-icon"><Mic size={32} className="text-primary"/></div>
+                  <div className="hiw-number">4</div>
+                </div>
+                <h4>Record & Create</h4>
+                <p>Come in, record, and bring your ideas to life.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 4. FEATURES SECTION (Services) */}
       <section id="features" className="section-features section-padding">
         <div className="container">
@@ -206,23 +259,7 @@ const Home = ({ onBookNow }) => {
       </section>
 
 
-      {/* GALLERY SECTION */}
-      <section id="gallery" className="section-gallery section-padding">
-        <div className="container">
-          <div className="text-center mb-12">
-            <span className="section-tag text-primary">OUR SPACES</span>
-            <h2 className="section-title">Gallery</h2>
-            <p className="section-subtitle">Take a look inside our premium studios.</p>
-          </div>
-          <div className="gallery-grid">
-            {galleryImages.map((src, index) => (
-              <div key={index} className="gallery-item">
-                <img src={src} alt={`Gallery image ${index + 1}`} loading="lazy" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* 6. CTA SECTION */}
       <section className="section-cta container mb-12">

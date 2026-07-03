@@ -20,20 +20,13 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0;
-  transition: opacity 2s ease-in-out, transform 10s linear;
-  transform: scale(1);
-}
-
-.hero-bg-image.active {
   opacity: 1;
-  transform: scale(1.05);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(15, 10, 31, 0.95) 0%, rgba(15, 10, 31, 0.7) 50%, rgba(15, 10, 31, 0.4) 100%);
+  background: linear-gradient(to right, var(--color-dark-bg) 0%, var(--color-dark-bg) 45%, transparent 75%);
   z-index: 1;
 }
 
@@ -389,7 +382,9 @@
 
 .how-it-works-layout {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   gap: 3rem;
 }
 
@@ -466,6 +461,56 @@
   z-index: 1;
 }
 
+/* --- BANNER SECTION --- */
+.section-banner {
+  background-color: var(--color-background);
+  padding: 2rem 0;
+}
+
+.banner-features-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  gap: 2rem;
+}
+
+.banner-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex: 1;
+}
+
+.banner-feature-icon {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: var(--color-primary);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.banner-feature-text h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.banner-feature-text p {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
 /* --- CTA SECTION --- */
 .cta-banner {
   background-color: var(--color-dark-bg);
@@ -517,6 +562,9 @@
 }
 
 @media (max-width: 768px) {
+  .hero-overlay {
+    background: linear-gradient(to bottom, var(--color-dark-bg) 0%, var(--color-dark-bg) 60%, transparent 100%);
+  }
   .hero-title {
     font-size: 3rem;
   }
@@ -539,6 +587,10 @@
   .features-container {
     grid-template-columns: 1fr;
   }
+  .how-it-works-layout {
+    flex-direction: column;
+    text-align: center;
+  }
   .hiw-steps {
     flex-direction: column;
     align-items: center;
@@ -552,6 +604,11 @@
     text-align: center;
     padding: 3rem 2rem;
     gap: 2rem;
+  }
+  .banner-features-card {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
   }
 }
 

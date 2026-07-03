@@ -36,7 +36,6 @@ const Navbar = ({ onBookNow }) => {
     { name: 'Studio', id: 'studios' },
     { name: 'Services', id: 'features' }, // Mapping Features section as Services
     { name: 'Booking', id: 'booking' },
-    { name: 'Gallery', id: 'gallery' },
     { name: 'Contact', id: 'contact' },
   ];
 
