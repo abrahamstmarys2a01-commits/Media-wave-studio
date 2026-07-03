@@ -58,16 +58,16 @@ const Home = ({ onBookNow }) => {
             <div className="hero-pill">
               PREMIUM PODCAST STUDIOS FOR RENT
             </div>
-            
+
             <h1 className="hero-title">
-              Record. Create.<br/>
+              Record. Create.<br />
               <span className="text-primary-gradient">Inspire.</span>
             </h1>
-            
+
             <p className="hero-subtitle">
               Professional podcast studios designed for creators, businesses, and storytellers.
             </p>
-            
+
             <div className="hero-features">
               <div className="hero-feature-pill">
                 <div className="hero-icon"><Mic size={18} /></div>
@@ -91,12 +91,12 @@ const Home = ({ onBookNow }) => {
                 </div>
               </div>
             </div>
-            
+
             <div className="hero-actions">
               <button onClick={() => {
                 document.getElementById('studios').scrollIntoView({ behavior: 'smooth' });
               }} className="btn-primary">
-                Explore Studios <ChevronRight size={18} style={{display: 'inline', verticalAlign: 'middle', marginLeft: '4px'}}/>
+                Explore Studios <ChevronRight size={18} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '4px' }} />
               </button>
               <button className="btn-glass">
                 <Play size={18} /> Take a Tour
@@ -117,7 +117,7 @@ const Home = ({ onBookNow }) => {
                 <p>Select date and time to book your studio</p>
               </div>
             </div>
-            
+
             <div className="booking-inputs">
               <div className="input-group">
                 <label>Select Date</label>
@@ -138,7 +138,7 @@ const Home = ({ onBookNow }) => {
                 </select>
               </div>
             </div>
-            
+
             <button className="btn-primary booking-btn" onClick={onBookNow}>
               Book Now
             </button>
@@ -152,16 +152,16 @@ const Home = ({ onBookNow }) => {
           <div className="section-header-row">
             <div className="section-header-left">
               <span className="section-tag">OUR STUDIOS</span>
-              <h2 className="section-title">Choose the perfect<br/>space for your podcast</h2>
+              <h2 className="section-title">Choose the perfect<br />space for your podcast</h2>
 
-              <button className="btn-outline mt-8">View All Studios <ChevronRight size={16} style={{display: 'inline', verticalAlign: 'middle'}}/></button>
+              <button className="btn-outline mt-8">View All Studios <ChevronRight size={16} style={{ display: 'inline', verticalAlign: 'middle' }} /></button>
             </div>
             <div className="section-header-right">
-               <div className="studios-grid">
-                 {studios.map(studio => (
-                   <StudioCard key={studio.id} {...studio} onBookNow={onBookNow} />
-                 ))}
-               </div>
+              <div className="studios-grid">
+                {studios.map(studio => (
+                  <StudioCard key={studio.id} {...studio} onBookNow={onBookNow} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -190,12 +190,12 @@ const Home = ({ onBookNow }) => {
           <div className="how-it-works-layout">
             <div className="hiw-text">
               <span className="section-tag text-primary">HOW IT WORKS</span>
-              <h2 className="section-title" style={{fontSize: '2rem'}}>Book. Record. Publish.<br/>It's that simple.</h2>
+              <h2 className="section-title" style={{ fontSize: '2rem' }}>Book. Record. Publish.<br />It's that simple.</h2>
             </div>
             <div className="hiw-steps">
               <div className="hiw-step">
                 <div className="hiw-icon-container">
-                  <div className="hiw-icon"><Calendar size={32} className="text-primary"/></div>
+                  <div className="hiw-icon"><Calendar size={32} className="text-primary" /></div>
                   <div className="hiw-number">1</div>
                 </div>
                 <h4>Choose Studio</h4>
@@ -204,7 +204,7 @@ const Home = ({ onBookNow }) => {
               <div className="hiw-divider"></div>
               <div className="hiw-step">
                 <div className="hiw-icon-container">
-                  <div className="hiw-icon"><Clock size={32} className="text-primary"/></div>
+                  <div className="hiw-icon"><Clock size={32} className="text-primary" /></div>
                   <div className="hiw-number">2</div>
                 </div>
                 <h4>Select Time</h4>
@@ -213,7 +213,7 @@ const Home = ({ onBookNow }) => {
               <div className="hiw-divider"></div>
               <div className="hiw-step">
                 <div className="hiw-icon-container">
-                  <div className="hiw-icon"><CreditCard size={32} className="text-primary"/></div>
+                  <div className="hiw-icon"><CreditCard size={32} className="text-primary" /></div>
                   <div className="hiw-number">3</div>
                 </div>
                 <h4>Book & Pay</h4>
@@ -222,7 +222,7 @@ const Home = ({ onBookNow }) => {
               <div className="hiw-divider"></div>
               <div className="hiw-step">
                 <div className="hiw-icon-container">
-                  <div className="hiw-icon"><Mic size={32} className="text-primary"/></div>
+                  <div className="hiw-icon"><Mic size={32} className="text-primary" /></div>
                   <div className="hiw-number">4</div>
                 </div>
                 <h4>Record & Create</h4>
@@ -261,7 +261,7 @@ const Home = ({ onBookNow }) => {
           </div>
           <div className="cta-action">
             <button onClick={onBookNow} className="btn-primary">
-              Book Now <ChevronRight size={18} style={{display: 'inline', verticalAlign: 'middle', marginLeft: '4px'}}/>
+              Book Now <ChevronRight size={18} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '4px' }} />
             </button>
           </div>
         </div>

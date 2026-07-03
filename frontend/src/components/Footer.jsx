@@ -69,11 +69,11 @@ const Footer = () => {
               </li>
               <li>
                 <Phone size={16} className="contact-icon" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 63691 53235</span>
               </li>
               <li>
                 <Mail size={16} className="contact-icon" />
-                <span>hello@mediawave.com</span>
+                <span>info@mediawavetech.com</span>
               </li>
             </ul>
           </div>

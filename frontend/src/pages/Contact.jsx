@@ -17,8 +17,7 @@ const Contact = () => {
               <Phone size={28} />
             </div>
             <h3 className="text-xl font-bold mb-2 text-gray-900">Phone</h3>
-            <p className="text-gray-600">+91 98765 43210</p>
-            <p className="text-gray-600">+91 98765 43211</p>
+            <p className="text-gray-600">+91 63691 53235</p>
           </div>
 
           <div className="bg-white border border-gray-100 shadow-[0_4px_30px_rgba(0,0,0,0.03)] p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300">
@@ -26,8 +25,7 @@ const Contact = () => {
               <Mail size={28} />
             </div>
             <h3 className="text-xl font-bold mb-2 text-gray-900">Email</h3>
-            <p className="text-gray-600">hello@trichypodcast.com</p>
-            <p className="text-gray-600">support@trichypodcast.com</p>
+            <p className="text-gray-600">info@mediawavetech.com</p>
           </div>
 
           <div className="bg-white border border-gray-100 shadow-[0_4px_30px_rgba(0,0,0,0.03)] p-8 rounded-3xl flex flex-col items-center text-center hover:-translate-y-2 transition-transform duration-300">
