@@ -65,7 +65,7 @@ const Footer = () => {
             <ul className="footer-contact">
               <li>
                 <MapPin size={16} className="contact-icon" />
-                <span>123 Podcast Way,<br/>Creative City, CA 90210</span>
+                <span>WD-54, Anandha bhavan complex,<br/>Second floor, 17/52, Puthur High Rd,<br/>Tiruchirappalli, Tamil Nadu 620017</span>
               </li>
               <li>
                 <Phone size={16} className="contact-icon" />

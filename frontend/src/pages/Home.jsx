@@ -25,15 +25,6 @@ const Home = ({ onBookNow }) => {
       price: 40,
       image: '/custom-gallery-9.png',
       isPopular: true
-    },
-    {
-      id: 'studio-b',
-      title: 'Studio B',
-      capacity: '1-6 People',
-      description: 'Great for podcasts with guests and co-hosts.',
-      price: 60,
-      image: '/custom-gallery-6.jpg',
-      isPopular: false
     }
   ];
 
@@ -42,7 +33,6 @@ const Home = ({ onBookNow }) => {
     { icon: <Video size={24} />, title: "Video Podcast Production", description: "Multi-camera setup for high-quality video recording." },
     { icon: <Play size={24} />, title: "YouTube Studio", description: "Perfect lighting and backdrops for your YouTube content." },
     { icon: <Mic2 size={24} />, title: "Interview & Talk Show Studio", description: "Professional setups tailored for interviews." },
-    { icon: <Wifi size={24} />, title: "Live Streaming Studio", description: "High-speed internet for uninterrupted live broadcasting." },
     { icon: <CheckCircle2 size={24} />, title: "Content Creation Hub", description: "Your one-stop destination for all content creation needs." },
     { icon: <Armchair size={24} />, title: "Audio Recording Services", description: "Crisp and clear audio recording and editing." }
   ];
@@ -163,7 +153,7 @@ const Home = ({ onBookNow }) => {
             <div className="section-header-left">
               <span className="section-tag">OUR STUDIOS</span>
               <h2 className="section-title">Choose the perfect<br/>space for your podcast</h2>
-              <p className="section-subtitle">From solo shows to group discussions, we have the right studio for you.</p>
+
               <button className="btn-outline mt-8">View All Studios <ChevronRight size={16} style={{display: 'inline', verticalAlign: 'middle'}}/></button>
             </div>
             <div className="section-header-right">

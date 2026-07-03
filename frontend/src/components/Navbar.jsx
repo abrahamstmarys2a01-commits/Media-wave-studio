@@ -82,10 +82,7 @@ const Navbar = ({ onBookNow }) => {
           </div>
           
           <div className="navbar-actions">
-            <a href="tel:+15551234567" className="navbar-phone">
-              <Phone size={16} />
-              +1 (555) 123-4567
-            </a>
+
             <button onClick={onBookNow} className="btn-primary btn-sm">
               Book Now
             </button>
@@ -120,10 +117,7 @@ const Navbar = ({ onBookNow }) => {
               {link.name}
             </button>
           ))}
-          <a href="tel:+15551234567" className="mobile-nav-link flex-center">
-            <Phone size={16} className="mr-2" />
-            +1 (555) 123-4567
-          </a>
+
           <button 
             onClick={() => {
               setIsOpen(false);
