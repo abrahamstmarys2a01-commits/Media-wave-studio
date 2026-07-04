@@ -1,10 +1,51 @@
 import { useEffect, useRef, useState } from 'react';
-import { Play, Mic, Wifi, Armchair, ChevronRight, CheckCircle2, Video, MapPin, Calendar, Clock, CreditCard, Mic2 } from 'lucide-react';
+import { Play, Mic, Wifi, Armchair, ChevronRight, CheckCircle2, Video, MapPin, Calendar, Clock, CreditCard, Mic2, X } from 'lucide-react';
 import StudioCard from '../components/StudioCard';
 import FeatureIcon from '../components/FeatureIcon';
 import './Home.css';
 
 const Home = ({ onBookNow }) => {
+  const [availability, setAvailability] = useState(null);
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [duration, setDuration] = useState('2 Hours');
+  const [lastChecked, setLastChecked] = useState(null);
+  const [showGallery, setShowGallery] = useState(false);
+  const [currentImageIdx, setCurrentImageIdx] = useState(0);
+
+  const [bookingDetails, setBookingDetails] = useState(null);
+
+  const handleCheckAvailability = async () => {
+    if (!date || !time) {
+      alert("Please select a date and time.");
+      return;
+    }
+    
+    setAvailability('checking');
+    
+    // Calculate endTime
+    let [hours, minutes] = time.split(':');
+    let durHours = parseInt(duration.split(' ')[0]);
+    let endHours = parseInt(hours) + durHours;
+    let endTime = `${String(endHours).padStart(2, '0')}:${minutes}`;
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/bookings/check?date=${date}&startTime=${time}&endTime=${endTime}`);
+      const data = await res.json();
+      
+      if (data.available) {
+        setAvailability('available');
+        setBookingDetails(null);
+      } else {
+        setAvailability('booked');
+        setBookingDetails(data.booking);
+      }
+    } catch (err) {
+      console.error("Error checking availability:", err);
+      setAvailability(null);
+      alert("Failed to check availability. Is the server running?");
+    }
+  };
   const galleryImages = [
     "/custom-gallery-1.png",
     "/custom-gallery-2.png",
@@ -23,7 +64,7 @@ const Home = ({ onBookNow }) => {
       capacity: '1-4 People',
       description: 'Perfect for solo episodes and interviews.',
       price: 40,
-      image: '/custom-gallery-9.png',
+      image: '/my-studio-bg.png',
       isPopular: true
     }
   ];
@@ -98,7 +139,10 @@ const Home = ({ onBookNow }) => {
               }} className="btn-primary">
                 Explore Studios <ChevronRight size={18} style={{ display: 'inline', verticalAlign: 'middle', marginLeft: '4px' }} />
               </button>
-              <button className="btn-glass">
+              <button className="btn-glass" onClick={() => {
+                setCurrentImageIdx(0);
+                setShowGallery(true);
+              }}>
                 <Play size={18} /> Take a Tour
               </button>
             </div>
@@ -121,17 +165,31 @@ const Home = ({ onBookNow }) => {
             <div className="booking-inputs">
               <div className="input-group">
                 <label>Select Date</label>
-                <input type="date" className="booking-input" defaultValue="2024-05-25" />
+                <input
+                  type="date"
+                  className="booking-input"
+                  value={date}
+                  onChange={(e) => { setDate(e.target.value); setAvailability(null); }}
+                />
               </div>
               <div className="input-divider"></div>
               <div className="input-group">
                 <label>Start Time</label>
-                <input type="time" className="booking-input" defaultValue="10:00" />
+                <input
+                  type="time"
+                  className="booking-input"
+                  value={time}
+                  onChange={(e) => { setTime(e.target.value); setAvailability(null); }}
+                />
               </div>
               <div className="input-divider"></div>
               <div className="input-group">
                 <label>Duration</label>
-                <select className="booking-input">
+                <select
+                  className="booking-input"
+                  value={duration}
+                  onChange={(e) => { setDuration(e.target.value); setAvailability(null); }}
+                >
                   <option>2 Hours</option>
                   <option>3 Hours</option>
                   <option>4 Hours</option>
@@ -139,10 +197,46 @@ const Home = ({ onBookNow }) => {
               </div>
             </div>
 
-            <button className="btn-primary booking-btn" onClick={onBookNow}>
-              Book Now
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
+              <button
+                className="btn-primary booking-btn"
+                onClick={handleCheckAvailability}
+                disabled={availability === 'checking'}
+              >
+                {availability === 'checking' ? 'Checking...' : 'Check Availability'}
+              </button>
+            </div>
           </div>
+
+          {/* RESULT CARD */}
+          {availability === 'booked' && bookingDetails && (
+            <div className="booking-result-card fade-in">
+              <div className="result-header">
+                <span className="badge badge-red">❌ Not Available</span>
+                <p>This time slot has already been booked.</p>
+              </div>
+              <div className="result-details">
+                <div className="detail-item"><span>Name</span><strong>{bookingDetails.customer_name}</strong></div>
+                <div className="detail-item"><span>Phone Number</span><strong>{bookingDetails.phone}</strong></div>
+                <div className="detail-item"><span>Booking Date</span><strong>{bookingDetails.booking_date}</strong></div>
+                <div className="detail-item"><span>Start Time</span><strong>{bookingDetails.start_time}</strong></div>
+                <div className="detail-item"><span>End Time</span><strong>{bookingDetails.end_time}</strong></div>
+                <div className="detail-item"><span>Duration</span><strong>{bookingDetails.duration}</strong></div>
+              </div>
+            </div>
+          )}
+
+          {availability === 'available' && (
+            <div className="booking-result-card fade-in" style={{ textAlign: 'center' }}>
+              <div className="result-header" style={{ justifyContent: 'center', marginBottom: '1.5rem' }}>
+                <span className="badge badge-green">✅ Available</span>
+              </div>
+              <p style={{ marginBottom: '1.5rem', fontSize: '1.1rem' }}>This time slot is available for booking.</p>
+              <button className="btn-primary" style={{ backgroundColor: '#8b5cf6', margin: '0 auto' }} onClick={onBookNow}>
+                Book Now
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -238,7 +332,7 @@ const Home = ({ onBookNow }) => {
         <div className="container">
           <div className="text-center mb-12">
             <span className="section-tag text-primary">WHAT WE OFFER</span>
-            <h2 className="section-title">Our Services</h2>
+
           </div>
           <div className="features-container">
             {features.map((feature, idx) => (
@@ -266,6 +360,47 @@ const Home = ({ onBookNow }) => {
           </div>
         </div>
       </section>
+
+    {/* GALLERY MODAL */}
+      {showGallery && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', 
+          backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 9999,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
+        }}>
+          <button 
+            onClick={() => setShowGallery(false)}
+            style={{ position: 'absolute', top: '30px', right: '40px', background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: '0.5rem' }}
+          >
+            <X size={36} />
+          </button>
+          
+          <div style={{ position: 'relative', maxWidth: '80%', maxHeight: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <button 
+              onClick={() => setCurrentImageIdx((prev) => (prev > 0 ? prev - 1 : galleryImages.length - 1))}
+              style={{ position: 'absolute', left: '-60px', background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: '1rem' }}
+            >
+              <ChevronRight size={48} style={{ transform: 'rotate(180deg)' }} />
+            </button>
+
+            <img 
+              src={galleryImages[currentImageIdx]} 
+              alt="Studio Tour" 
+              style={{ maxWidth: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}
+            />
+            
+            <button 
+              onClick={() => setCurrentImageIdx((prev) => (prev < galleryImages.length - 1 ? prev + 1 : 0))}
+              style={{ position: 'absolute', right: '-60px', background: 'none', border: 'none', color: 'white', cursor: 'pointer', padding: '1rem' }}
+            >
+              <ChevronRight size={48} />
+            </button>
+          </div>
+          <div style={{ color: 'white', marginTop: '1.5rem', fontSize: '1.2rem', fontWeight: 'bold' }}>
+            {currentImageIdx + 1} / {galleryImages.length}
+          </div>
+        </div>
+      )}
 
     </div>
   );

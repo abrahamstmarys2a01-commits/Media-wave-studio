@@ -26,7 +26,7 @@ const Navbar = ({ onBookNow }) => {
         setActiveSection(current);
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -53,11 +53,11 @@ const Navbar = ({ onBookNow }) => {
         {/* Logo */}
         <button onClick={() => scrollToSection('home')} className="navbar-logo">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-icon">
-            <path d="M12 2v20M17 5v14M7 5v14M22 10v4M2 10v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 2v20M17 5v14M7 5v14M22 10v4M2 10v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <div className="logo-text">
-            <strong>Media Wave</strong>
-            <span>STUDIO</span>
+            <strong>PodSpace</strong>
+            <span>PODCAST STUDIO</span>
           </div>
         </button>
 
@@ -65,8 +65,8 @@ const Navbar = ({ onBookNow }) => {
         <div className="navbar-menu desktop-only">
           <div className="navbar-links">
             {navLinks.map((link) => (
-              <button 
-                key={link.id} 
+              <button
+                key={link.id}
                 onClick={() => {
                   if (link.id === 'booking') {
                     onBookNow();
@@ -80,7 +80,7 @@ const Navbar = ({ onBookNow }) => {
               </button>
             ))}
           </div>
-          
+
           <div className="navbar-actions">
 
             <button onClick={onBookNow} className="btn-primary btn-sm">
@@ -90,7 +90,7 @@ const Navbar = ({ onBookNow }) => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button 
+        <button
           className="mobile-menu-btn mobile-only"
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -102,8 +102,8 @@ const Navbar = ({ onBookNow }) => {
       <div className={`mobile-nav ${isOpen ? 'open' : ''}`}>
         <div className="mobile-nav-content">
           {navLinks.map((link) => (
-            <button 
-              key={link.id} 
+            <button
+              key={link.id}
               onClick={() => {
                 if (link.id === 'booking') {
                   setIsOpen(false);
@@ -118,7 +118,7 @@ const Navbar = ({ onBookNow }) => {
             </button>
           ))}
 
-          <button 
+          <button
             onClick={() => {
               setIsOpen(false);
               onBookNow();

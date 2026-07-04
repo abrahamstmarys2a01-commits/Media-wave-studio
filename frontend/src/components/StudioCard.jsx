@@ -19,10 +19,7 @@ const StudioCard = ({ image, title, capacity, description, price, isPopular, onB
           {capacity}
         </div>
         <p className="studio-card-description">{description}</p>
-        <div className="studio-card-footer">
-          <div className="studio-card-price">
-            <strong>${price}</strong> <span className="text-muted">/ hour</span>
-          </div>
+        <div className="studio-card-footer" style={{ justifyContent: 'flex-end' }}>
           <button className="btn-outline btn-sm" onClick={onBookNow}>Book Now</button>
         </div>
       </div>

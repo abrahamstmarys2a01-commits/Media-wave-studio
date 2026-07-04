@@ -10,9 +10,32 @@ const BookingModal = ({ isOpen, onClose }) => {
   // Watch start time to validate end time
   const startTime = watch('startTime');
 
-  const onSubmit = (data) => {
-    console.log('Booking Data:', data);
-    setIsSubmitted(true);
+  const onSubmit = async (data) => {
+    try {
+      const res = await fetch('http://localhost:5000/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_name: data.fullName,
+          phone: data.phone,
+          email: 'test@example.com',
+          booking_date: data.bookingDate,
+          start_time: data.startTime,
+          end_time: data.endTime,
+          duration: 'Custom'
+        })
+      });
+      
+      if (!res.ok) {
+        const errData = await res.json();
+        alert(errData.error || 'Failed to book slot');
+        return;
+      }
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      alert('Error connecting to backend');
+    }
   };
 
   const handleClose = () => {
@@ -43,7 +66,7 @@ const BookingModal = ({ isOpen, onClose }) => {
 
         {/* Left Side: Image */}
         <div className="modal-left">
-          <img src="/my-studio-bg.png" alt="Podcast Studio" />
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Camera Studio" />
           <div className="modal-left-overlay">
             <h3>Book the Studio</h3>
             <p>Reserve your premium recording spot today.</p>
@@ -66,28 +89,24 @@ const BookingModal = ({ isOpen, onClose }) => {
               <h2 className="modal-title-mobile">Book the Studio</h2>
               <form onSubmit={handleSubmit(onSubmit)} className="modal-form">
                 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">Full Name *</label>
-                    <input 
-                      type="text"
-                      {...register("fullName", { required: "Required" })}
-                      className="form-input"
-                      placeholder="John Doe"
-                    />
-                    {errors.fullName && <span className="form-error">{errors.fullName.message}</span>}
-                  </div>
+                <div className="form-group">
+                  <label className="form-label">Full Name *</label>
+                  <input 
+                    type="text"
+                    {...register("fullName", { required: "Required" })}
+                    className="form-input"
+                  />
+                  {errors.fullName && <span className="form-error">{errors.fullName.message}</span>}
+                </div>
 
-                  <div className="form-group">
-                    <label className="form-label">Phone *</label>
-                    <input 
-                      type="tel"
-                      {...register("phone", { required: "Required" })}
-                      className="form-input"
-                      placeholder="9876543210"
-                    />
-                    {errors.phone && <span className="form-error">{errors.phone.message}</span>}
-                  </div>
+                <div className="form-group">
+                  <label className="form-label">Phone *</label>
+                  <input 
+                    type="tel"
+                    {...register("phone", { required: "Required" })}
+                    className="form-input"
+                  />
+                  {errors.phone && <span className="form-error">{errors.phone.message}</span>}
                 </div>
 
                 <div className="form-group">
@@ -101,61 +120,33 @@ const BookingModal = ({ isOpen, onClose }) => {
                   {errors.bookingDate && <span className="form-error">{errors.bookingDate.message}</span>}
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">Start Time *</label>
-                    <input 
-                      type="time"
-                      {...register("startTime", { required: "Required" })}
-                      className="form-input"
-                    />
-                    {errors.startTime && <span className="form-error">{errors.startTime.message}</span>}
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">End Time *</label>
-                    <input 
-                      type="time"
-                      {...register("endTime", { 
-                        required: "Required",
-                        validate: (value) => {
-                          if (!startTime) return true;
-                          return value > startTime || "Must be after start time";
-                        }
-                      })}
-                      className="form-input"
-                    />
-                    {errors.endTime && <span className="form-error">{errors.endTime.message}</span>}
-                  </div>
+                <div className="form-group">
+                  <label className="form-label">Start Time *</label>
+                  <input 
+                    type="time"
+                    {...register("startTime", { required: "Required" })}
+                    className="form-input"
+                  />
+                  {errors.startTime && <span className="form-error">{errors.startTime.message}</span>}
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">Studio Category *</label>
-                    <select 
-                      {...register("studioCategory", { required: "Required" })}
-                      className="form-input"
-                    >
-                      <option value="">Select Studio</option>
-                      <option value="studio_a">Studio A</option>
-                      <option value="studio_b">Studio B</option>
-                    </select>
-                    {errors.studioCategory && <span className="form-error">{errors.studioCategory.message}</span>}
-                  </div>
-
-                  <div className="form-group">
-                    <label className="form-label">Payment Method</label>
-                    <select 
-                      {...register("paymentMethod")}
-                      className="form-input"
-                    >
-                      <option value="pay_at_studio">Pay at Studio</option>
-                      <option value="upi">UPI / GPay</option>
-                      <option value="card">Credit / Debit Card</option>
-                      <option value="net_banking">Net Banking</option>
-                    </select>
-                  </div>
+                <div className="form-group">
+                  <label className="form-label">End Time *</label>
+                  <input 
+                    type="time"
+                    {...register("endTime", { 
+                      required: "Required",
+                      validate: (value) => {
+                        if (!startTime) return true;
+                        return value > startTime || "Must be after start time";
+                      }
+                    })}
+                    className="form-input"
+                  />
+                  {errors.endTime && <span className="form-error">{errors.endTime.message}</span>}
                 </div>
+
+
 
                 <button type="submit" className="submit-btn">
                   Confirm Booking Request
