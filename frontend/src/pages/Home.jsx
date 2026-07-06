@@ -30,7 +30,7 @@ const Home = ({ onBookNow }) => {
     let endTime = `${String(endHours).padStart(2, '0')}:${minutes}`;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/check?date=${date}&startTime=${time}&endTime=${endTime}`);
+      const res = await fetch(`http://localhost:5005/api/bookings/check?date=${date}&startTime=${time}&endTime=${endTime}`);
       const data = await res.json();
       
       if (data.available) {
